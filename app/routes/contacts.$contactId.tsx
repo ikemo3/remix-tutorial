@@ -1,17 +1,17 @@
-import { Form } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { Form, useLoaderData } from "@remix-run/react";
 import type { FunctionComponent } from "react";
 
 import type { ContactRecord } from "../data";
+import { getContact } from "../data";
+
+export const loader = async ({ params }) => {
+  const contact = await getContact(params.contactId);
+  return json({ contact });
+};
 
 export default function Contact() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+  const { contact } = useLoaderData<typeof loader>();
 
   return (
     <div id="contact">
@@ -37,9 +37,7 @@ export default function Contact() {
 
         {contact.twitter ? (
           <p>
-            <a
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -80,11 +78,7 @@ const Favorite: FunctionComponent<{
   return (
     <Form method="post">
       <button
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         name="favorite"
         value={favorite ? "false" : "true"}
       >
