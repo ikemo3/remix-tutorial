@@ -1,6 +1,7 @@
 {
   "name": "remix-tutorial",
   "private": true,
+  "license": "MIT",
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
