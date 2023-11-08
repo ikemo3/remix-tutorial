@@ -15,7 +15,7 @@ dependencies:
     specifier: ^2
     version: 2.0.1(typescript@5.2.2)
   isbot:
-    specifier: ^3.6.13
+    specifier: ^3.7.0
     version: 3.7.0
   match-sorter:
     specifier: ^6.3.1
